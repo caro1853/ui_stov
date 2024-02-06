@@ -1,0 +1,19 @@
+<h1 >Qué horario se ajusta mejor?</h1>
+
+<app-calendar (selectDate)="changeDate($event)"></app-calendar>
+
+<h3 class="mt-5">Seleccione una hora disponible</h3>
+
+<h5>Fecha seleccionada: {{dateSelected}}</h5>
+
+<h3 *ngIf="hours.length === 0">No hay horas disponibles</h3>
+
+<div class="row g-3 align-items-center">
+    <div class="card text-center mt-5" style="width: 18rem;" *ngFor="let item of hours">
+        <div class="card-body">
+            <p>{{item.name}}</p>
+            <input type="button" class="btn btn-primary" value="Agendar" (click)="saveAppointment(item)">          
+        </div>
+    </div>
+
+  </div>
