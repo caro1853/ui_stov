@@ -20,22 +20,23 @@
           [ngClass]="{ show: isExpanded }"
         >
           <ul class="navbar-nav flex-grow">
-            <li class="nav-item" [routerLinkActive]="['link-active']">
-              <a class="nav-link" [routerLink]="['/pages/appointment-booking']">Crear Una Cita</a
+
+            <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isPatient()">
+              <a class="nav-link" [routerLink]="['/pages/doctor-available']">Crear Una Cita</a
               >
             </li>
 
-            <li class="nav-item" [routerLinkActive]="['link-active']">
+            <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isDoctor()">
                 <a class="nav-link" [routerLink]="['/pages/operational-hours']">Horas Disponibles</a
                 >
               </li>
 
-              <li class="nav-item" [routerLinkActive]="['link-active']">
+              <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="isDoctor()">
                 <a class="nav-link" [routerLink]="['/pages/bookings']">Calendario</a
                 >
               </li>
 
-            <li class="nav-item" [routerLinkActive]="['link-active']">
+            <li class="nav-item" [routerLinkActive]="['link-active']" href="#">
               <a class="nav-link pointer" (click)="exitSesion()"
                 >Cerrar Sesión</a
               >

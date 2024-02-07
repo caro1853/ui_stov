@@ -1,0 +1,15 @@
+<h1>Seleccione un profesional</h1>
+
+<div class="row mt-5">
+  <div class="card border-info mb-3" style="max-width: 18rem;" *ngFor="let doctor of doctors">
+    <div class="card-header">{{doctor.name}}</div>
+    <div class="card-body">
+      <h5 class="card-title">{{doctor.especiality}}</h5>
+      <p class="card-text">{{doctor.description}}</p>
+    </div>
+    <div class="card-footer bg-transparent">
+        <button class="btn btn-primary" (click)="chooseDoctor(doctor)">Agendar</button>
+    </div>
+
+  </div>
+</div>

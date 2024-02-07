@@ -6,6 +6,7 @@ import { AUTH_ROUTES } from "./auth.routes";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
+import { InfoAlertComponent } from '../shared/info-alert/info-alert.component';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import { LoginComponent } from './login/login.component';
       ReactiveFormsModule,
       FormsModule,
       CommonModule,
-      RouterModule,
+      RouterModule
+      
     ],
     providers: [],
     bootstrap: []

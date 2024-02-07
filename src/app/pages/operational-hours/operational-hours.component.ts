@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Hour, IOperationalHours } from 'src/app/models/operationalhours.interface';
 import { IOperationalHoursDoctor } from 'src/app/models/operationalhoursdoctor.interface';
 import { ConfigureCalendarService } from 'src/app/services/configurecalendar.service';
+import { LoginService } from 'src/app/services/login.service';
 import { SharedServices } from 'src/app/services/shared.services';
 
 @Component({
@@ -18,16 +19,27 @@ export class OperationalHoursComponent implements OnInit {
 
   data!:IOperationalHours[];
   
+  showalert:boolean=false;
+  messagealert:string="";
+  doctorId: number = 0;
   /**
    *
    */
   constructor(private _sharedServices: SharedServices, 
-    private _configureCalendarService: ConfigureCalendarService) {
+    private _configureCalendarService: ConfigureCalendarService,
+    private _loginService: LoginService) {
+      
+      this.doctorId = _loginService.getDoctorId();
     let c = this._configureCalendarService.
-      // TODO: Fix 1
-        getOperationalHours(1).subscribe((data: any) => {
+      
+        
+
+        getOperationalHours(this.doctorId).subscribe((data: any) => {
           this.data = data;
           this.days = this.loadDays();
+          if(this.days?.length > 0){
+            this.chooseDay(this.days[0]);
+          }
         });
   }
 
@@ -88,17 +100,30 @@ export class OperationalHoursComponent implements OnInit {
   }
 
   save(){
-    debugger;
     let dataToSave: IOperationalHoursDoctor = {
-      doctorId: 1,// TODO: Fix 1
+      doctorId: this.doctorId,
       OperationalHours: this.data
     };
     
+    this.hideAlert();
     this._configureCalendarService.
-    saveOperationalHours(dataToSave).subscribe((data: any) => {
-      debugger;
-      console.log(data);
-    });
+    saveOperationalHours(dataToSave).subscribe({
+      next: (data: any) => {
+        this.showAlert('La información se guardó correctamente');
+      },
+      error: (error: any) => {
+        this.showAlert(`Error al guardar los datos. ${error.message}`);
+      }
+    })
+  }
+
+  showAlert(message:string){
+    this.showalert = true;
+    this.messagealert = message;
+  }
+
+  hideAlert(){
+    this.showalert = false;
   }
 }
 

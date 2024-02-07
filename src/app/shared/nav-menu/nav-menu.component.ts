@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -10,7 +11,7 @@ export class NavMenuComponent {
   /**
    *
    */
-  constructor(private _router: Router,) {
+  constructor(private _router: Router,private _loginService: LoginService) {
    
     
   }
@@ -25,7 +26,15 @@ export class NavMenuComponent {
   }
 
   exitSesion() {
-    //this._loginService.closeSesion();
-    //this._router.navigate(['/auth/login']);
+    this._loginService.closeSesion();
+    this._router.navigate(['/auth/login']);
+  }
+
+  isDoctor(){
+    return this._loginService.isDoctor();
+  }
+
+  isPatient(){
+    return this._loginService.isPatient();
   }
 }

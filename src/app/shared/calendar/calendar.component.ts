@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { SharedServices } from 'src/app/services/shared.services';
 
 @Component({
   selector: 'app-calendar',
@@ -10,9 +11,9 @@ export class CalendarComponent implements OnInit {
     {nameDay: '', numberDay: 0, monthName: '', year: 0, fullDate: new Date(), active: ''},
   ]
 
-  @Output() selectDate = new EventEmitter<string>();
+  @Output() selectDate = new EventEmitter<Date>();
   
-  constructor() {
+  constructor(private _sharedServices: SharedServices) {
   }
 
   previousEnabledDisabled(){
@@ -28,6 +29,7 @@ export class CalendarComponent implements OnInit {
   ngOnInit() {
     const startDate = new Date();
     this.items = this.calculateItems(startDate);
+    this.items[0].active = 'active';
   }
 
   calculateItems(startDate: Date) {
@@ -68,9 +70,8 @@ export class CalendarComponent implements OnInit {
       } else
         i.active = '';
     });
-    debugger;
-    const dateString = item.fullDate.getFullYear() + '-' + (item.fullDate.getMonth() + 1) + '-' + item.fullDate.getDate();
-    this.selectDate.emit(dateString);
+    
+    this.selectDate.emit(item.fullDate);
   }
   nextDate() {
     let cantElements = this.items.length;

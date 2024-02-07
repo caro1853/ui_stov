@@ -11,6 +11,8 @@ import { CalendarComponent } from '../shared/calendar/calendar.component';
 import { OperationalHoursComponent } from './operational-hours/operational-hours.component';
 import { BookingsComponent } from './bookings/bookings.component';
 import { NavMenuComponent } from '../shared/nav-menu/nav-menu.component';
+import { InfoAlertComponent } from '../shared/info-alert/info-alert.component';
+import { DoctorsAvailableComponent } from './doctors-available/doctors-available.component';
 
 @NgModule({
     declarations: [
@@ -20,14 +22,17 @@ import { NavMenuComponent } from '../shared/nav-menu/nav-menu.component';
       CalendarComponent,
       OperationalHoursComponent,
       BookingsComponent,
-      NavMenuComponent
+      NavMenuComponent,
+      InfoAlertComponent,
+      DoctorsAvailableComponent
     ],
     imports: [ 
       PAGES_ROUTES,
       ReactiveFormsModule,
       FormsModule,
       CommonModule,
-      RouterModule,
+      RouterModule
+      
     ],
     providers: [],
     bootstrap: []

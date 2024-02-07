@@ -1,5 +1,9 @@
+<h1 class="mt-5">Horario de atención</h1>
+
+<h5>Por favor seleccione los días de la semana y las horas en que podría ofrecer el servicio.</h5>
+
 <nav aria-label="...">
-    <ul class="pagination">
+    <ul class="pagination mt-5">
 
         <li *ngFor="let item of days;" [ngClass]="'page-item ' + item.active" aria-current="page">
             <button class="page-link" (click)="chooseDay(item)">
@@ -15,6 +19,10 @@
     </ul>
 </nav>
 
+<hr/>
+
+<h3>Horas</h3>
+
 <div class="row g-3 align-items-center">
 
     <div class="card text-center mt-5" style="width: 18rem;" *ngFor="let item of hours">
@@ -27,5 +35,14 @@
 
   </div>
 
-  <button type="button" class="btn btn-primary">Cancelar</button>
-  <button type="button" class="btn btn-primary" (click)="save()">Continuar</button>
+    <hr/>
+<div class="row">
+    <div class="col">
+        <button type="button" class="btn btn-primary" (click)="save()">Guardar Configuración</button>
+    </div>
+</div>
+
+<app-info-alert 
+    [showalert]="showalert" 
+    [messagealert]="messagealert"
+    (hidealert)="hideAlert()"></app-info-alert>

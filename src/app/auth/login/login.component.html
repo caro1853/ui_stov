@@ -1,1 +1,52 @@
-<p>login works!</p>
+
+
+
+
+<div class="row">
+    <div class="col" style="text-align: center;background: #A8C7D6;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;">
+        <h1>Bienvenido</h1>
+    </div>
+    <div class="col" style="text-align: center;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <div class="container">
+                    <form (ngSubmit)="onSigin( formulario )"
+                  #formulario="ngForm">
+        
+              <div class="form-group mt-5 row vertical-center-row">        
+                <h5>Ingreso de usuarios</h5>
+                <hr class="my-4">
+              </div>
+        
+              <div class="form-group mt-5 row vertical-center-row">
+                <label>Correo Electrónico</label>
+                <input type="email" class="form-control" name="email1" [(ngModel)]="email11" #email1="ngModel">
+              </div>
+        
+              <div class="form-group row vertical-center-row">
+                <label>Contraseña</label>
+                <input type="password" class="form-control" name="password1" [(ngModel)]="password11" #password1="ngModel">
+              </div>
+        
+              <div class="row vertical-center-row mt-5">
+                <button type="submit" class="btn btn-primary">Ingresar</button>
+              </div>
+            </form>
+
+            <h3 *ngIf="this.showalert">{{messagealert}}</h3>
+            
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
