@@ -4,8 +4,8 @@ import { Observable, of, switchMap } from 'rxjs';
 import { IAppointment } from 'src/app/models/appointment.interface';
 import { IDcotor } from 'src/app/models/doctor.interface';
 import { Hour } from 'src/app/models/operationalhours.interface';
-import { AgendaService } from 'src/app/services/agenda.service';
 import { AppointmentService } from 'src/app/services/appointment.service';
+import { CalendarService } from 'src/app/services/calendar.service';
 import { LoginService } from 'src/app/services/login.service';
 import { SharedServices } from 'src/app/services/shared.services';
 
@@ -38,10 +38,10 @@ export class AppointmentBookingComponent implements OnInit {
   dateSelected = '';
   constructor(private _activatedRoute: ActivatedRoute,
     private _sharedServices: SharedServices,
-    private _agendaService: AgendaService,
     private _appointmentService: AppointmentService,
-    private _loginService: LoginService
-    ) {
+    private _loginService: LoginService,
+    private _calendarService: CalendarService)
+     {
       
       this.doctorSelected = this._sharedServices.getDoctorSelected();
       
@@ -57,7 +57,7 @@ export class AppointmentBookingComponent implements OnInit {
         if(params['doctorselected']){
           if(Number.isInteger(Number(params['doctorselected']))){
             this.doctorIdSelected = Number(params['doctorselected']);
-            return this._agendaService.getHoursAvailable(this.doctorIdSelected, new Date());
+            return this._calendarService.getHoursAvailable(this.doctorIdSelected, new Date());
           }
         }
         return of(null);
@@ -137,7 +137,7 @@ export class AppointmentBookingComponent implements OnInit {
 
   changeDate(date: Date){
     this.dateSelected = date.toDateString();
-    this._agendaService.getHoursAvailable(this.doctorIdSelected, date)
+    this._calendarService.getHoursAvailable(this.doctorIdSelected, date)
       .subscribe((data: any) => {
        
         this.hours = this.setHours(data, date);

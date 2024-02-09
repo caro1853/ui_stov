@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  uistov:
+    image: ${DOCKER_REGISTRY-}uistov
+    container_name: uistov
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8087:80

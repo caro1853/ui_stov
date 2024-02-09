@@ -44,7 +44,7 @@ export class LoginComponent {
         },
         error: (err:any) => {
           
-          this.showAlert(err?.error?.message);
+          this.showAlert(err?.error?.message??err?.message??'Error al iniciar sesión');
         }
       }); 
     }

@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -9,7 +10,7 @@ export class DoctorService {
     pahtservice: string = '';
 
     constructor(private _http: HttpClient) {
-        const baseURLAPI = 'https://localhost:7166';
+        const baseURLAPI = environment.baseURLAPI;
         const version = 'v1';
         this.pahtservice = `${baseURLAPI}/api/${version}`;
     }

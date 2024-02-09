@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { map } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -15,7 +16,7 @@ export class LoginService {
      *
      */
     constructor(private _http: HttpClient) {
-      const baseURLAPI = 'https://localhost:7166';
+      const baseURLAPI = environment.baseURLAPI;
       this.pathservice = `${baseURLAPI}`;//`${environment.baseURLmanagementAPI}/${this.controller}`;
       console.log({pathservice: this.pathservice});
     }

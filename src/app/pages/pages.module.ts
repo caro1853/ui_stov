@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { PAGES_ROUTES } from './pages.routes';
 import { PagesComponent } from './pages.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { AvailableCalendarComponent } from './available-calendar/available-calendar.component';
 import { AppointmentBookingComponent } from './appointment-booking/appointment-booking.component';
 import { CalendarComponent } from '../shared/calendar/calendar.component';
 import { OperationalHoursComponent } from './operational-hours/operational-hours.component';
@@ -17,7 +16,6 @@ import { DoctorsAvailableComponent } from './doctors-available/doctors-available
 @NgModule({
     declarations: [
       PagesComponent,
-      AvailableCalendarComponent,
       AppointmentBookingComponent,
       CalendarComponent,
       OperationalHoursComponent,

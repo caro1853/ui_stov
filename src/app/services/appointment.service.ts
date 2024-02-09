@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { IAppointment } from "../models/appointment.interface";
 import { SharedServices } from "./shared.services";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,7 @@ export class AppointmentService {
      *
      */
     constructor(private _http: HttpClient, private _sharedServices: SharedServices) {
-        const baseURLAPI = 'https://localhost:7166';
+        const baseURLAPI = environment.baseURLAPI;
         const version = 'v1';
         this.pahtservice = `${baseURLAPI}/api/${version}`;
     }

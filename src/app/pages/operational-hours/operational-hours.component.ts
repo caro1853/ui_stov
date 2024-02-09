@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Hour, IOperationalHours } from 'src/app/models/operationalhours.interface';
 import { IOperationalHoursDoctor } from 'src/app/models/operationalhoursdoctor.interface';
-import { ConfigureCalendarService } from 'src/app/services/configurecalendar.service';
+import { CalendarService } from 'src/app/services/calendar.service';
 import { LoginService } from 'src/app/services/login.service';
 import { SharedServices } from 'src/app/services/shared.services';
 
@@ -26,21 +26,25 @@ export class OperationalHoursComponent implements OnInit {
    *
    */
   constructor(private _sharedServices: SharedServices, 
-    private _configureCalendarService: ConfigureCalendarService,
+    private _calendarService: CalendarService,
     private _loginService: LoginService) {
       
       this.doctorId = _loginService.getDoctorId();
-    let c = this._configureCalendarService.
-      
-        
-
-        getOperationalHours(this.doctorId).subscribe((data: any) => {
+      this.hideAlert();
+    let c = this._calendarService.
+        getOperationalHours(this.doctorId).subscribe({next: (data: any) => {
+          debugger;
           this.data = data;
           this.days = this.loadDays();
           if(this.days?.length > 0){
             this.chooseDay(this.days[0]);
           }
-        });
+        },
+        error: (error: any) => {
+          this.showAlert(`Error al cargar los datos. ${error.message}`);
+          debugger;
+        }
+      });
   }
 
   ngOnInit(): void {
@@ -106,7 +110,7 @@ export class OperationalHoursComponent implements OnInit {
     };
     
     this.hideAlert();
-    this._configureCalendarService.
+    this._calendarService.
     saveOperationalHours(dataToSave).subscribe({
       next: (data: any) => {
         this.showAlert('La información se guardó correctamente');
