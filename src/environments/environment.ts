@@ -1,3 +1,3 @@
 export const environment = {
-    baseURLAPI: 'https://localhost:7208'
+    baseURLAPI: 'https://servicesdeployed.azurewebsites.net'
 };
