@@ -25,8 +25,8 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-          echo "Current directory: $(pwd)"
-          echo "Current directory: $(ls)"
+          run echo "Current directory: $(pwd)"
+          run echo "list: $(ls)"
         working-directory: .
        
       - name: Upload artifact for deployment job
