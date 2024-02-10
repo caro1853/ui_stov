@@ -25,8 +25,8 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-        working-directory: ./dist/ui_stov
-
+        working-directory: .
+       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
@@ -53,4 +53,4 @@ jobs:
           app-name: 'testdeploy-ui'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B0AA5963489648E68B4769F31E5006F1 }}
-          package: .
+          package: ./dist/ui_stov
