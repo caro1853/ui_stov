@@ -35,9 +35,10 @@ jobs:
       - name: list dist
         run : ls dist/ui_stov
 
+      
+
       - name: Change to a specific directory
         run: cd dist/ui_stov
-        working-directory: dist/ui_stov
 
       - name: Print current directory
         run: pwd
