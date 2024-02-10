@@ -31,6 +31,9 @@ jobs:
 
       - name: list objects
         run : echo "$(ls)"
+
+      - name: list dist
+        run : ls dist/ui_stov
         
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
