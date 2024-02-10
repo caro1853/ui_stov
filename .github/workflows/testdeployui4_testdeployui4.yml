@@ -52,4 +52,4 @@ jobs:
           app-name: 'testdeployui4'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7DB0DFBE4038420F85E0C898D8885C78 }}
-          package: ./dist/ui_stov
+          package: .
