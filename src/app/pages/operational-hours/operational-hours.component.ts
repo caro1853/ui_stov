@@ -33,7 +33,7 @@ export class OperationalHoursComponent implements OnInit {
       this.hideAlert();
     let c = this._calendarService.
         getOperationalHours(this.doctorId).subscribe({next: (data: any) => {
-          debugger;
+          
           this.data = data;
           this.days = this.loadDays();
           if(this.days?.length > 0){
@@ -42,7 +42,7 @@ export class OperationalHoursComponent implements OnInit {
         },
         error: (error: any) => {
           this.showAlert(`Error al cargar los datos. ${error.message}`);
-          debugger;
+          
         }
       });
   }

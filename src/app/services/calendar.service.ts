@@ -31,14 +31,11 @@ export class CalendarService {
     }
 
     getOperationalHours(doctorId: number){
-      debugger;
-      //const path = this.getPathService('get', doctorId);
       const path = `${this.pahtservice}/${this.controller}/getoperationalhours/${doctorId}`;
       return this._http.get(path, {headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this._sharedServices.getTokenSaved() })});
     }
 
     saveOperationalHours(data:IOperationalHoursDoctor){
-      //const path = this.getPathService('post', data.doctorId);
       const path = `${this.pahtservice}/${this.controller}/configureoperationalhours/${data.doctorId}`;
       return this._http.post(path, data, {headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this._sharedServices.getTokenSaved() })});
     }
