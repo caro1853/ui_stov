@@ -22,28 +22,34 @@ export class BookingsComponent {
     private _loginService: LoginService ) {
     this.doctorId = _loginService.getDoctorId();
       this.currentdate = _sharedServices.getDateFormattedToString(new Date());
-      this.loadData(new Date(this.currentdate));
+      this.loadData(new Date());
     }
 
     loadData(date: Date){
       this._appointmentService.getAppointmentByDoctorAndDate(this.doctorId, date)
-      .subscribe((data: any) => {
-        this.hideAlert();
-        this.agenda = data;
-        if(data.length === 0){
-          this.showAlert('No hay citas para el día seleccionado', 'warning');
-        }
-        else{
-          this.agenda.forEach(element => {
-            element.from = this._sharedServices.getHourFormat(element.scheduleTime);
-            element.to = this._sharedServices.getHourFormat(element.scheduleTime + 1);
-          });
-        }
-      });
+      .subscribe({
+        next: (data: any) => {
+          this.hideAlert();
+          this.agenda = data;
+          if(data.length === 0){
+            this.showAlert('No hay citas para el día seleccionado', 'warning');
+          }
+          else{
+            this.agenda.forEach(element => {
+              element.from = this._sharedServices.getHourFormat(element.scheduleTime);
+              element.to = this._sharedServices.getHourFormat(element.scheduleTime + 1);
+            });
+          }
+      },
+      error: (err: any) => {
+        this.showAlert(err?.error?.message??'Error al cargar las citas', 'danger');
+      }
+    });
     }
 
     changeDate(event: any){
-      this.loadData(new Date( event.target.value ));
+      const date = new Date( event.target.value?.replace(/-/g, '\/') );
+      this.loadData(date);
     }
     showAlert(message:string, type:string){
       this.showalert = true;
