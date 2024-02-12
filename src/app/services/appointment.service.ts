@@ -28,19 +28,21 @@ export class AppointmentService {
     }
 
     saveAppointment(data: IAppointment){
-        const path = this.getPathService('post');
-        const dataToSend = {
+        const dataToSave = {
             ...data,
             scheduledDate: this._sharedServices.getDateFormattedToString(data.scheduledDate)
-        };
-        return this._http.post( path, dataToSend );
+        }
+        const path = this.getPathService('post');
+        return this._http.post( path, dataToSave,{headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this._sharedServices.getTokenSaved() })} );
     }
 
     getAppointmentByDoctorAndDate(doctorId: number, date: Date)
     {
         const path = this.getPathService('get');
-        const dateString = this._sharedServices.getDateFormattedToString(date);
-        return this._http.get(path, {params: {doctorId: doctorId, scheduleDate: dateString}});
+        return this._http.get(path, {params: {doctorId: doctorId, scheduleDate: this._sharedServices.getDateFormattedToString(date)},
+        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this._sharedServices.getTokenSaved() })},
+        
+        );
     }
 
 }

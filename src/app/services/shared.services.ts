@@ -39,6 +39,12 @@ export class SharedServices {
         return `${date.getFullYear()}-${m}-${d}`;
     }
 
+    getDateFormattedToStringSeparator(date: Date, separator: string) {
+      const m:string = ("00" + (date.getMonth()+ 1).toString()).slice(-2);
+      const d:string = ("00" + date.getDate().toString()).slice(-2);
+      return `${date.getFullYear()}${separator}${m}${separator}${d}`;
+  }
+
     getTokenSaved() {
         if (localStorage.getItem('token')) {
           return localStorage.getItem('token');

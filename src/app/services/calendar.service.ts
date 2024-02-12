@@ -42,8 +42,7 @@ export class CalendarService {
 
     getHoursAvailable(doctorId: number, date: Date){        
       const path = `${this.pahtservice}/${this.controller}/gethoursavailable/${doctorId}`;
-      const dateString = this._sharedServices.getDateFormattedToString(date);      
-      return this._http.get(path, {params: {scheduleDate: dateString},
+      return this._http.get(path, {params: {scheduleDate: this._sharedServices.getDateFormattedToString(date)},
           headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this._sharedServices.getTokenSaved() })
         });
     }

@@ -84,6 +84,9 @@ export class LoginService {
         return value;
     }
 
+    getNameUser(){
+        return this.getValueFromClaim('name');
+    }
 
     closeSesion() {
       localStorage.removeItem('token');

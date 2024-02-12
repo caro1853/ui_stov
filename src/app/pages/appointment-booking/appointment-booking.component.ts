@@ -14,8 +14,7 @@ import { SharedServices } from 'src/app/services/shared.services';
   templateUrl: './appointment-booking.component.html',
   styleUrls: ['./appointment-booking.component.css']
 })
-export class AppointmentBookingComponent implements OnInit {
-  //hours = [{fullHour: '00:00', hourToShow: '00:00 AM'}];
+export class AppointmentBookingComponent {
 
   hours = [{ name: '8:00 am', value: 8, available: true, schedule: 0 },
           { name: '9:00 am', value: 9, available: true, schedule: 0 },
@@ -44,9 +43,8 @@ export class AppointmentBookingComponent implements OnInit {
      {
       
       this.doctorSelected = this._sharedServices.getDoctorSelected();
-      
-    const dateString = (new Date()).getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
-    this.dateSelected = dateString;
+    
+    this.dateSelected = this._sharedServices.getDateFormattedToString(new Date());
     this.loadData();  
     
   }
@@ -62,19 +60,20 @@ export class AppointmentBookingComponent implements OnInit {
         }
         return of(null);
       }
-    )).subscribe((data: any) => {
+    )).subscribe({next: (data: any) => {
       if(data){
         this.hours = this.setHours(data, new Date());
       }
-    });
+    },
+    error: (err: any) => {
+      this.showAlert(err?.error?.message??'Error al cargar las horas disponibles');
+    }
+  });
   }
 
   getDoctorSelected(): Observable<any>{
     return this._activatedRoute.params;
   }
-
-  
-
 
   setHours(dayData: Hour[], date: Date) {
     this.hideAlert();
@@ -94,49 +93,9 @@ export class AppointmentBookingComponent implements OnInit {
     return _hours;
   }
 
-  ngOnInit() {
-    const hourAvailable = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00'];
-    //this.hours = this.setHours(hourAvailable);
-  }
-
-  selectHour(hour: string){
-    
-  }
-/*
-  setHours(hourAvailable: string[]){
-    const newHours:any = [];
-    hourAvailable.forEach(item => {
-      const h = item.split(':');
-      if(h.length > 0){
-        const hournumber = parseInt(h[0]);
-        let hourToShow = '';
-        if (hournumber < 12){
-          hourToShow = hournumber + ':00 AM';
-        } 
-        else if (hournumber === 12){
-            hourToShow = hournumber + ':00 M';
-        } else if (hournumber > 12){
-          hourToShow = (hournumber - 12) + ':00 PM';
-        }
-        newHours.push({
-          fullHour: item,
-          hourToShow: hourToShow
-        });
-      }
-    });
-    return newHours;
-  }*/
-
-  changeAvailable(hour: any){
-    /*if(this.data){
-      let dayData = this.data.find((d) => d.day === hour.day);
-      let hourData = dayData?.hours?.find((h) => h.schedule === hour.schedule);
-      hourData!.available = !hour!.available;
-    }*/
-  }
 
   changeDate(date: Date){
-    this.dateSelected = date.toDateString();
+    this.dateSelected = this._sharedServices.getDateFormattedToString(date);
     this._calendarService.getHoursAvailable(this.doctorIdSelected, date)
       .subscribe((data: any) => {
        
@@ -145,26 +104,26 @@ export class AppointmentBookingComponent implements OnInit {
   }
 
   saveAppointment(data:any){
-    //TODO: Fix 1
+    
     let appointment:IAppointment = {
       doctorId: this.doctorIdSelected,
       patientId: this._loginService.getPatientId(),
-      scheduledDate: new Date(data.date),
+      scheduledDate: data.date,
       scheduleTime: data.schedule
     };
     this.scheduleselected = data.schedule;
     this.hideAlert();
-    debugger;
+    
     this._appointmentService.saveAppointment(appointment)
       .subscribe({
         next: (data) => {
-        debugger;
+        
         this.removeScheduleSaved(this.scheduleselected);
         this.showAlert("Su cita ha sido asignada");
       },
       error: (err) => {
-        debugger;
-        this.showAlert(err?.error?.message);
+        
+        this.showAlert(err?.error?.message??'Error al guardar la cita');
       }
     });
   }
@@ -182,6 +141,4 @@ export class AppointmentBookingComponent implements OnInit {
   hideAlert(){
     this.showalert = false;
   }
-
-
 }

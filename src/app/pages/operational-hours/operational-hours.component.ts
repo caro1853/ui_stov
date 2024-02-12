@@ -40,8 +40,8 @@ export class OperationalHoursComponent implements OnInit {
             this.chooseDay(this.days[0]);
           }
         },
-        error: (error: any) => {
-          this.showAlert(`Error al cargar los datos. ${error.message}`);
+        error: (err: any) => {
+          this.showAlert(err?.error?.message?? `Error al cargar los datos.`);
           
         }
       });
