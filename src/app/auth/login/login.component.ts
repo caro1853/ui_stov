@@ -30,20 +30,26 @@ export class LoginComponent {
     else{
       this._loginService.validateUser(this.email11, this.password11).subscribe({
         next: (res: any) => {
+          console.log('res');
+          console.log({res});
           if(res ==  true){
             if(this._loginService.isDoctor()){
               this._router.navigate(['/pages/bookings']);
+              console.log('es doctor');
             }
             else{
               this._router.navigate(['/pages/doctor-available']);
+              console.log('es paciente');
             }
           }
           else{
             this.showAlert('Usuario o contraseña incorrectos');
+            console.log('Usuario o contraseña incorrectos');
           }
         },
         error: (err:any) => {
-          
+          console.log('err');
+          console.log({err});
           this.showAlert(err?.error?.message??err?.message??'Error al iniciar sesión');
         }
       }); 
